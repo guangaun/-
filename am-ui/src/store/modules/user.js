@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-16 09:39:13
  * @LastEditors: charles
- * @LastEditTime: 2021-12-16 12:12:43
+ * @LastEditTime: 2021-12-20 14:48:44
  */
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
@@ -13,13 +13,17 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    avatar: '',
+    user:{}
   }
 }
 
 const state = getDefaultState()
 
 const mutations = {
+  SET_USER:(state,user)=>{
+    state.user = user;
+  },
   RESET_STATE: (state) => {
     Object.assign(state, getDefaultState())
   },
@@ -59,11 +63,11 @@ const actions = {
         if (!data) {
           return reject('Verification failed, please Login again.')
         }
-
         const { realname, user_face } = data
 
         commit('SET_NAME', realname)
         commit('SET_AVATAR', user_face)
+        commit('SET_USER',data)
         resolve(data)
       }).catch(error => {
         reject(error)
