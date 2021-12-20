@@ -1,8 +1,8 @@
 /*
  * @Author: HeAo
  * @Date: 2021-12-03 10:50:16
- * @LastEditTime: 2021-12-14 09:47:32
- * @LastEditors: HeAo
+ * @LastEditTime: 2021-12-20 14:35:45
+ * @LastEditors: charles
  * @Description:
  * @FilePath: \am-server\app\service\engineer.js
  */
@@ -58,39 +58,34 @@ class EngineerService extends Service {
   // 分页查询工程信息
   async pageQuery ({ page, pageSize, charge_id, customer_id }) {
     const { mysql } = this.app
-    let params = { charge_id, customer_id }
-    for (let k in params) {
-      if (!params[k]) {
-        delete params[k]
-      }
+
+    let sql = `
+      select 
+        e.* ,
+        charge.realname as charge_name,
+        customer.realname as customer_name, 
+        customer.telephone as customer_telephone
+      from am_engineer e 
+      left join base_account as charge
+      on e.charge_id = charge.id
+      left join base_account as customer
+      on e.customer_id = customer.id
+      WHERE 1=1
+    `
+    if(charge_id){
+      sql += `AND e.charge_id = ${charge_id}`
     }
-    // 分页查询工程信息
-    let engineers = await mysql.select('am_engineer', {
-      where: params,
-      orders: [['create_time', 'desc']], // 排序方式
-      limit: parseInt(pageSize), // 返回数据量
-      offset: (page - 1) * pageSize, // 数据偏移量
-    })
-    engineers.forEach(engineer => {
-      let charge_name = mysql.select('base_account', {
-        where: { id: engineer.charge_id },
-        columns: ['realname']
-      })
-      let customer = mysql.select('base_account', {
-        where: { id: engineer.customer_id },
-        columns: ['realname', 'telephone']
-      })
-      charge_name.then(res => {
-        engineer.charge_name = res[0].realname
-      })
-      customer.then(res => {
-        engineer.customer = res[0]
-      })
-    })
+    if(customer_id){
+      sql += `AND e.customer_id = ${charge_id}`
+    }
+    sql += `LIMIT ${(page - 1) * pageSize},${pageSize}`
+    let engineers = await mysql.query(sql);
+    console.log(engineers);
+   
     // 自定义查询total的sql语句
-    const sql = `select count(*) as total from am_engineer`
+    const sql_count = `select count(*) as total from am_engineer`
     // 获取分页查询的数据条数
-    const [{ total }] = await mysql.query(sql)
+    const [{ total }] = await mysql.query(sql_count)
     // 返回
     return {
       page,
