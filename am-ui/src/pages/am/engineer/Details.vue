@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:17:25
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-20 15:06:22
+ * @LastEditTime: 2021-12-20 16:21:54
 -->
 <template>
   <div class="engineer_details">
@@ -128,7 +128,11 @@ export default {
       })
     },
     toOfflineHandler(row){
-
+      let url = "/device/closeDevice"
+      get(url,{id:row.id}).then(resp=>{
+        this.$message({type:"success",message:resp.message});
+        this.loadEngineerDevices();
+      })
     },
     // 加载该工程绑定的设备信息
     loadEngineerDevices(){
