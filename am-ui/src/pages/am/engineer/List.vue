@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:06:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-20 14:53:26
+ * @LastEditTime: 2021-12-20 17:57:43
 -->
 <template>
   <div>
@@ -25,13 +25,14 @@
    
     <el-table size="small" :data="engineerData.list">
       <el-table-column label="工程编号" prop="serial_number" width="100" align="center"></el-table-column>
-      <el-table-column label="工程名称" prop="name" align="center"></el-table-column>
+      <el-table-column label="工程名称" prop="name" min-width="200" align="center"></el-table-column>
+      <el-table-column label="状态" prop="status" width="100" align="center"></el-table-column>
       <el-table-column label="工程类型" prop="type" width="100" align="center"></el-table-column>
       <el-table-column label="区域经理" prop="charge_name" width="100" align="center"></el-table-column>
-      <el-table-column label="客户姓名" prop="customer.realname" width="130" align="center"></el-table-column>
-      <el-table-column label="联系方式" prop="customer.telephone" width="130" align="center"></el-table-column>
-      <el-table-column label="状态" prop="status" width="120" align="center"></el-table-column>
-      <el-table-column label="操作" width="130" align="center">
+      <el-table-column label="客户" prop="customer_name" width="100" align="center"></el-table-column>
+      <el-table-column label="联系方式" prop="customer_telephone" width="100" align="center"></el-table-column>
+
+      <el-table-column label="操作" width="100" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="toEditHandler(scope.row)">修改</el-button>
           <el-button type="text" size="small" @click="toBindHandler(scope.row)">绑定</el-button>
@@ -49,6 +50,7 @@
     ></el-pagination>
 
     <el-dialog :title="title" :visible.sync="visible">
+      {{form}}
       <el-form :model="form" label-width="100px">
         <el-form-item label="区域经理" >
           <el-select v-model="form.charge_id">

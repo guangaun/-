@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:02
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-20 14:42:56
+ * @LastEditTime: 2021-12-20 17:33:41
 -->
 <template>
   <div>
@@ -52,8 +52,8 @@
       :total="+deviceData.total"
       :current-page="+deviceData.page"
       :page-size="+deviceData.pageSize"
-      @current-change="pageChangeHandler"
-    ></el-pagination>
+      @current-change="pageChangeHandler">
+    </el-pagination>
 
     <el-dialog :title="title" :visible.sync="visible">
       {{form}}

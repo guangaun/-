@@ -10,9 +10,9 @@
       <el-table-column prop="name" label="角色名称" />
       <el-table-column label="操作" fixed="right" align="center" width="180">
         <template slot-scope="scope">
-          <el-button type="text" @click.prevent="toAuthorization(scope.row)">授权</el-button>
-          <el-button type="text" @click.prevent="toUpdate(scope.row)">修改</el-button>
-          <el-button type="text" class="delete" @click.prevent="deleteHandler(scope.row.id)">移除</el-button>
+          <el-button type="text" size="small" @click.prevent="toAuthorization(scope.row)">授权</el-button>
+          <el-button type="text" size="small" @click.prevent="toUpdate(scope.row)">修改</el-button>
+          <el-button type="text" size="small" class="delete" @click.prevent="deleteHandler(scope.row.id)">移除</el-button>
         </template>
       </el-table-column>
     </el-table>
