@@ -12,14 +12,14 @@
         <!-- 左侧 -->
         <div class="content_one_left">
           <div class="content_one_left_1 chart_box">
-            <Box title="网上服务事项">
+            <Box title="实时监测数据">
               <template v-slot:content>
                 <Left1/>
               </template>
             </Box>
           </div>
           <div class="content_one_left_2 chart_box">
-            <Box title="政务大厅办理情况">
+            <Box title="设备分布状态">
               <template v-slot:content>
                 <Left2/>
               </template>
@@ -30,21 +30,23 @@
         <!-- 中间 -->
         <div class="content_one_center">
           <div class="chart_box content_one_center_map">
-            <Map/>  
+           
+             <!--  <Map/>-->
+             <Map_lz/>
           </div>
         </div>
         <!-- / 中间 -->
         <!-- 右侧 -->
         <div class="content_one_right">
           <div class="content_one_right_1 chart_box">
-            <Box title="渠道业务量办理">
+            <Box title="设备月报">
               <template v-slot:content>
                 <Right1/>
               </template>
             </Box>
           </div>
           <div class="content_one_right_2 chart_box">
-            <Box title="全流程网上办">
+            <Box title="实时温湿度数据">
               <template v-slot:content>
                 <Right2/>
               </template>
@@ -64,21 +66,21 @@
           </Box>
         </div>
         <div class="content_tow_2 chart_box">
-          <Box title="政务大厅近12个月办件情况">
+          <Box title="监测点信息">
             <template v-slot:content>
               <Bottom2/>
             </template>
           </Box>
         </div>
         <div class="content_tow_3 chart_box">
-          <Box title="一鹿快办近一个月用户注册量">
+          <Box title="实时颗粒物检测">
             <template v-slot:content>
               <Bottom3/>
             </template>
           </Box>
         </div>
         <div class="content_tow_4 chart_box">
-          <Box title="两线工单">
+          <Box title="报警信息">
             <template v-slot:content>
               <Bottom4/>
             </template>
@@ -94,6 +96,7 @@
 <script>
 import Box from '@/components/Box.vue'
 import Map from './components/Map'
+import Map_lz from './components/Map_lz'
 import Left1 from './components/Left1'
 import Left2 from './components/Left2'
 import Right1 from './components/Right1'
@@ -107,6 +110,7 @@ export default {
   components:{
     Box,
     Map,
+    Map_lz,
     Left1,
     Left2,
     Right1,

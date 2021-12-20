@@ -1,4 +1,12 @@
 <!--
+ * @Author: your name
+ * @Date: 2021-12-16 18:53:41
+ * @LastEditTime: 2021-12-19 17:03:11
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \group-2\am-dashboard\src\pages\government\components\Map.vue
+-->
+<!--
   功能 地图
   作者：licy
   邮箱：licy@briup.com
@@ -41,7 +49,7 @@ export default {
       };
       let district = new AMap.DistrictSearch(opts);
       district.setExtensions('all');
-      district.search('昆山市', function(status, result) {
+      district.search('张掖市', function(status, result) {
           map.remove(polygons)//清除上次结果
           polygons = [];
           var bounds = result.districtList[0].boundaries;
