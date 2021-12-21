@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 10:48:21
+ * @LastEditTime: 2021-12-21 11:21:06
 -->
 <template>
   <div>
@@ -83,6 +83,7 @@ export default {
     this.loadWorkorders();
   },
   methods:{
+    //工单详情
     toDetailsHandler(row){
 
     },

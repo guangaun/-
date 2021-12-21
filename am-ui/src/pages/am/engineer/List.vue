@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:06:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 09:04:08
+ * @LastEditTime: 2021-12-21 11:21:17
 -->
 <template>
   <div>
@@ -36,6 +36,7 @@
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="toEditHandler(scope.row)">修改</el-button>
           <el-button type="text" size="small" @click="toBindHandler(scope.row)">绑定</el-button>
+          <el-button type="text" size="small" @click="tooffHandler(scope.row)">结束</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -118,6 +119,10 @@ export default {
     this.queryCharges();
   },
   methods:{
+    // 结束工程
+    tooffHandler(row){
+
+    },
     // 绑定设备
     toBindHandler(row){
       this.$router.push({
@@ -158,7 +163,7 @@ export default {
     loadEngineers(){
       let url = "/engineer/pageQuery";
       get(url,this.params).then(resp => {
-        this.engineerData = resp.data;
+        this.engineerData = resp.data;d
       })
     },
     pageChangeHandler(page){
