@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:06:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-20 17:57:43
+ * @LastEditTime: 2021-12-21 09:04:08
 -->
 <template>
   <div>
@@ -50,7 +50,6 @@
     ></el-pagination>
 
     <el-dialog :title="title" :visible.sync="visible">
-      {{form}}
       <el-form :model="form" label-width="100px">
         <el-form-item label="区域经理" >
           <el-select v-model="form.charge_id">
@@ -81,8 +80,8 @@
          <el-form-item label="客户姓名" >
           <el-input v-model="form.customer_name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="客户联系方式" >
-          <el-input v-model="form.customer_telephone" autocomplete="off"></el-input>
+        <el-form-item label="客户电话" >
+          <el-input v-model="form.customer_telephone" autocomplete="off" ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

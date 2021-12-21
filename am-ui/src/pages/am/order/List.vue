@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-20 17:58:38
+ * @LastEditTime: 2021-12-21 09:14:32
 -->
 <template>
   <div>
@@ -30,7 +30,7 @@
       <el-table-column label="操作" width="130" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="toDetailsHandler(scope.row)">详情</el-button>
-          <el-button type="text" size="small" @click="toCancelHandler(scope.row)">取消</el-button>
+          <el-button type="text" size="small" @click="open(scope.row)">取消</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -66,8 +66,28 @@ export default {
     this.loadWorkorders();
   },
   methods:{
+     open(row) {
+        this.$confirm('此操作将永久删除该工单, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+      },
     toDetailsHandler(row){
-
+      this.$router.push({
+        path:'/am/engineer/Details',
+        query:row
+      })
     },
     // 取消工单
     toCancelHandler(row){
