@@ -3,7 +3,8 @@
  * @Author: charles
  * @Date: 2021-12-14 22:06:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 11:21:17
+ * @LastEditTime: 2021-12-21 13:16:20
+ * @LastEditTime: 2021-12-21 11:45:13
 -->
 <template>
   <div>
@@ -32,11 +33,11 @@
       <el-table-column label="客户" prop="customer_name" width="100" align="center"></el-table-column>
       <el-table-column label="联系方式" prop="customer_telephone" width="100" align="center"></el-table-column>
 
-      <el-table-column label="操作" width="100" align="center">
+      <el-table-column label="操作" width="200" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="toEditHandler(scope.row)">修改</el-button>
           <el-button type="text" size="small" @click="toBindHandler(scope.row)">绑定</el-button>
-          <el-button type="text" size="small" @click="tooffHandler(scope.row)">结束</el-button>
+          <el-button type="text" size="small" @click="toEndHandler(scope.row)">结束</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -119,9 +120,13 @@ export default {
     this.queryCharges();
   },
   methods:{
-    // 结束工程
-    tooffHandler(row){
-
+    //结束工程
+    toEndHandler(row){
+        let url = "/engineer/finish"
+        get(url,{id:row.id}).then(resp =>{
+        this.$message({type:"success",message:resp.message});
+        this.loadEngineers();
+      })
     },
     // 绑定设备
     toBindHandler(row){

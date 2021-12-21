@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 11:21:06
+ * @LastEditTime: 2021-12-21 13:17:18
 -->
 <template>
   <div>
@@ -34,7 +34,7 @@
         </template>
       </el-table-column>
       <el-table-column label="工程名称" prop="engineer_name" min-width="200" align="center"></el-table-column>
-      <el-table-column label="设备名称" prop="device_name" width="200" align="center"></el-table-column>
+      <el-table-column label="设备名称" prop="device_name" width="150" align="center"></el-table-column>
       <el-table-column label="问题描述" prop="bill_why" width="200" align="center"></el-table-column>
       <el-table-column label="状态" prop="status" align="center">
         <template slot-scope="scope">
@@ -43,8 +43,8 @@
           <el-tag type="danger" size="mini" v-else>{{scope.row.status}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="工单类型" prop="type" width="100" align="center"></el-table-column>
-      <el-table-column label="操作" width="100" align="center">
+      <el-table-column label="工单类型" prop="type" width="140" align="center"></el-table-column>
+      <el-table-column label="操作" width="140" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="toDetailsHandler(scope.row)">详情</el-button>
           <el-button type="text" size="small" @click="toCancelHandler(scope.row)">取消</el-button>

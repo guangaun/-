@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:13:32
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 10:23:03
+ * @LastEditTime: 2021-12-21 11:06:34
 -->
 <template>
   <div>
@@ -15,10 +15,9 @@
       <el-col :span="18">
         <div v-if="params.device_id"> 
           <div>
-            {{mouthData}}
           </div>
     
-          <el-table :data="mouthData.list" size="small">
+          <el-table :data="mouthData" size="small">
           <el-table-column label="tsp" prop="tsp" width="60" align="center"></el-table-column>
           <el-table-column label="pm10" prop="pm10" width="60" align="center"></el-table-column>
           <el-table-column label="pm25" prop="pm25" width="60" align="center"></el-table-column>
