@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 16:06:57
+ * @LastEditTime: 2021-12-21 21:40:09
 -->
 <template>
   <div class="home">
@@ -29,6 +29,11 @@
         </div>
       </div>
     </div>
+    <van-pagination
+     :v-model="params.page"
+     :total-items="workOrderData.total"
+     :itwms-per-page="workOrderData.pageSize"
+     @change="changePage"/>
   </div>
 </template>
 <script>
@@ -54,6 +59,11 @@ export default {
     this.loadWorkOrder();
   },
   methods:{
+    //分页
+    changePage(size){
+        this.params.page= size,
+        this.loadWorkOrder();
+    },
     toRefuseHandler(id){
        // 1. 获取工单id和用户id
       let account_id = this.info.id;
