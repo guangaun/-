@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:02
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-20 17:33:41
+ * @LastEditTime: 2021-12-21 13:20:22
 -->
 <template>
   <div>
@@ -56,7 +56,6 @@
     </el-pagination>
 
     <el-dialog :title="title" :visible.sync="visible">
-      {{form}}
       <el-form :model="form" label-width="80px">
         <el-form-item label="设备编号" >
           <el-input v-model="form.serial_number" autocomplete="off"></el-input>

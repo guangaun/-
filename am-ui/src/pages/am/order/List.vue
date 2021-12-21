@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 13:17:18
+ * @LastEditTime: 2021-12-21 15:42:24
 -->
 <template>
   <div>
@@ -15,7 +15,8 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="queryHandler">搜索</el-button>
-          </el-form-item>
+              
+            </el-form-item>
         </el-form>
       </el-col>
       <el-col :span="12" style="text-align:right">
@@ -85,11 +86,20 @@ export default {
   methods:{
     //工单详情
     toDetailsHandler(row){
-
+      let url = "/workorder/findById"
+        get(url,{id:row.id}).then(resp =>{
+        this.params.page = 1;
+        this.loadWorkorders();
+      })
     },
     // 取消工单
     toCancelHandler(row){
-
+      let url = "/workorder/cancelOrder"
+        get(url,{id:row.id}).then(resp =>{
+        this.$message({type:"success",message:resp.message});
+        this.loadWorkorders();
+           
+      })
     },
     queryHandler(){
       this.params.page = 1;

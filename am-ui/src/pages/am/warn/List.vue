@@ -1,10 +1,10 @@
 <!--
- * @Description: 工程列表
- * @Author: charles
- * @Date: 2021-12-14 22:06:30
+ * @Author: your name
+ * @Date: 2021-12-21 14:51:59
+ * @LastEditTime: 2021-12-21 16:19:12
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 15:29:56
- * @LastEditTime: 2021-12-21 11:45:13
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \group-2\am-ui\src\pages\am\worker\List.vue
 -->
 <template>
   <div>
@@ -24,17 +24,14 @@
       </el-col>
     </el-row>
    
-    <el-table size="small" :data="engineerData.list">
-      <el-table-column label="工程编号" prop="serial_number" width="100" align="center"></el-table-column>
-      <el-table-column label="工程名称" prop="name" min-width="200" align="center"></el-table-column>
-      <el-table-column label="状态" prop="status" width="100" align="center"></el-table-column>
-      <el-table-column label="工程类型" prop="type" width="100" align="center"></el-table-column>
-      <el-table-column label="区域经理" prop="charge_name" width="100" align="center"></el-table-column>
-      <el-table-column label="客户" prop="customer_name" width="100" align="center"></el-table-column>
-      <el-table-column label="联系方式" prop="customer_telephone" width="100" align="center"></el-table-column>
-      <el-table-column label="操作" width="200" align="center">
+    <el-table size="small">
+      <el-table-column label="pm2.5超标" prop="" width="200" align="center"></el-table-column>
+      <el-table-column label="pm10超标" prop="" width="200" align="center"></el-table-column>
+      <el-table-column label="温度过高" prop="" width="200" align="center"></el-table-column>
+      <el-table-column label="湿度过高" prop="" width="200" align="center"></el-table-column>
+      <el-table-column label="操作"  align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="toEditHandler(scope.row)">修改</el-button>
+          <el-button type="text" size="small" @click="toEditHandler(scope.row)">s</el-button>
           <el-button type="text" size="small" @click="toBindHandler(scope.row)">绑定</el-button>
           <el-button type="text" size="small" @click="toEndHandler(scope.row)">结束</el-button>
         </template>
@@ -52,7 +49,7 @@
 
     <el-dialog :title="title" :visible.sync="visible">
       <el-form :model="form" label-width="100px">
-        <el-form-item label="区域经理" >
+        <el-form-item label="姓名" >
           <el-select v-model="form.charge_id">
             <el-option 
               v-for="c in charges" 
@@ -61,27 +58,33 @@
               :value="c.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="工程编号" >
+        <el-form-item label="工号" >
           <el-input v-model="form.serial_number" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="工程名称" >
+        <el-form-item label="年龄" >
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="工程类型" >
+        <el-form-item label="性别" >
           <el-select v-model="form.type">
-            <el-option label="建筑工地" value="建筑工地"></el-option>
-            <el-option label="道路" value="道路"></el-option>
-            <el-option label="公园" value="公园"></el-option>
-            <el-option label="事业单位" value="事业单位"></el-option>
+            <el-option label="男" value=""></el-option>
+            <el-option label="女" value=""></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="工程地址" >
-          <el-input v-model="form.address" autocomplete="off"></el-input>
+        <el-form-item label="籍贯" >
+          <el-select v-model="form.adress">
+            <el-option label="甘肃" value="0"></el-option>
+            <el-option label="上海" value="1"></el-option>
+          </el-select>
+          <el-select v-model="form.adress">
+            <el-option label="兰州" value="0"></el-option>
+            <el-option label="平凉" value="0"></el-option>
+            <el-option label="苏州" value="1"></el-option>
+          </el-select>
         </el-form-item>
-         <el-form-item label="客户姓名" >
+         <el-form-item label="家庭住址" >
           <el-input v-model="form.customer_name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="客户电话" >
+        <el-form-item label="联系方式" >
           <el-input v-model="form.customer_telephone" autocomplete="off" ></el-input>
         </el-form-item>
       </el-form>
@@ -176,7 +179,7 @@ export default {
     },
     toAddHandler(){
       this.visible = true;
-      this.title = "录入工程";
+      this.title = "录入工人";
       this.form = {}
     }
   }
