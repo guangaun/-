@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:09:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-20 17:56:53
+ * @LastEditTime: 2021-12-21 10:38:10
 -->
 <template>
   <div>
@@ -25,6 +25,12 @@
     </el-form>
   </div>
 </template>
+<style>
+	label:before {
+	  content: '* ';
+    color: red;
+  }
+</style>
 <script>
 import {get,postJSON} from '@/utils/request'
 import {mapGetters} from 'vuex'

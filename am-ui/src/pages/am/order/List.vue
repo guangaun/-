@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 09:14:32
+ * @LastEditTime: 2021-12-21 10:48:21
 -->
 <template>
   <div>
@@ -23,14 +23,31 @@
     </el-row>
    
     <el-table size="small" :data="workorderData.list">
-      <el-table-column label="工程名称" prop="engineer_name" width="400" align="center"></el-table-column>
-      <el-table-column label="设备名称" prop="device_name" width="180" align="center"></el-table-column>
-      <el-table-column label="状态" prop="status" align="center"></el-table-column>
-      <el-table-column label="工单类型" prop="type" width="120" align="center"></el-table-column>
-      <el-table-column label="操作" width="130" align="center">
+      <el-table-column label="序号" type="index" :index="1" align="center"></el-table-column>
+      <el-table-column type="expand">
+        <template slot-scope="slot">
+          <ul style="display:flex">
+            <li style="height:200px; overflow:hidden" v-for="p in slot.row.end_photos" :key="p">
+              <img style="width:100%" :src="p" alt="">
+            </li>
+          </ul>
+        </template>
+      </el-table-column>
+      <el-table-column label="工程名称" prop="engineer_name" min-width="200" align="center"></el-table-column>
+      <el-table-column label="设备名称" prop="device_name" width="200" align="center"></el-table-column>
+      <el-table-column label="问题描述" prop="bill_why" width="200" align="center"></el-table-column>
+      <el-table-column label="状态" prop="status" align="center">
+        <template slot-scope="scope">
+          <el-tag type="success" size="mini" v-if="scope.row.status == '已完成'">{{scope.row.status}}</el-tag>
+          <el-tag type="warning" size="mini" v-else-if="scope.row.status == '进行中'">{{scope.row.status}}</el-tag>
+          <el-tag type="danger" size="mini" v-else>{{scope.row.status}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="工单类型" prop="type" width="100" align="center"></el-table-column>
+      <el-table-column label="操作" width="100" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="toDetailsHandler(scope.row)">详情</el-button>
-          <el-button type="text" size="small" @click="open(scope.row)">取消</el-button>
+          <el-button type="text" size="small" @click="toCancelHandler(scope.row)">取消</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -66,28 +83,8 @@ export default {
     this.loadWorkorders();
   },
   methods:{
-     open(row) {
-        this.$confirm('此操作将永久删除该工单, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });          
-        });
-      },
     toDetailsHandler(row){
-      this.$router.push({
-        path:'/am/engineer/Details',
-        query:row
-      })
+
     },
     // 取消工单
     toCancelHandler(row){
