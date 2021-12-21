@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 14:20:24
+ * @LastEditTime: 2021-12-21 16:06:57
 -->
 <template>
   <div class="home">
@@ -25,7 +25,7 @@
         </van-row>
         <div class="btns">
           <van-button plain hairline size="mini" type="primary" @click="toTakeOrderHandler(o.id)">接单</van-button>
-          <van-button plain hairline size="mini" type="primary" @click="toTakeOrderHandler(o.id)">拒绝接单</van-button>
+          <van-button plain hairline size="mini" type="primary" @click="toRefuseHandler(o.id)">拒绝接单</van-button>
         </div>
       </div>
     </div>
@@ -38,6 +38,7 @@ import {Toast} from 'vant'
 export default {
   data(){
     return {
+      currentPage: 1,
       params:{
         page:1,
         pageSize:10,
@@ -53,6 +54,18 @@ export default {
     this.loadWorkOrder();
   },
   methods:{
+    toRefuseHandler(id){
+       // 1. 获取工单id和用户id
+      let account_id = this.info.id;
+      let params = {id,account_id}
+      // 2. 调用拒绝接单
+      let url = "/workorder/cancelOrder"
+      get(url,params).then(resp => {
+        // 3. 提示
+        Toast.success(resp.message)
+        this.loadWorkOrder();
+      })
+    },
     // 接单
     toTakeOrderHandler(id){
       // 1. 获取工单id和用户id
