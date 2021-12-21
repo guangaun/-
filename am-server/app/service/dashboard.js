@@ -1,8 +1,8 @@
 /*
  * @Author: HeAo
  * @Date: 2021-12-08 16:38:45
- * @LastEditTime: 2021-12-09 17:47:18
- * @LastEditors: HeAo
+ * @LastEditTime: 2021-12-21 13:48:09
+ * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: \am-server\app\service\dashboard.js
  * 别乱动！
@@ -96,6 +96,25 @@ class DashboardService extends Service {
     })
 
     return result
+  }
+
+  async queryEngineerNumber() {
+    const { mysql } = this.app
+    try {
+      const sql1 = `select count(*) end from am_engineer where status = "已结束"`
+      const sql2 = `select count(*) survey from am_engineer where status = "监测中"`
+      const sql3 = `select count(*) notbind from am_engineer where status = "未绑定"`
+      const [{ end }] = await mysql.query(sql1)
+      const [{ survey}] = await mysql.query(sql2)
+      const [{ notbind}] = await mysql.query(sql3)
+      return [
+        { type: '已结束', value: end },
+        { type: '监测中', value: survey },
+        { type: '未绑定', value: notbind },
+      ]
+    } catch (error) {
+      throw error
+    }
   }
 }
 

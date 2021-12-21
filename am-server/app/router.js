@@ -1,6 +1,6 @@
 /*
- * @LastEditTime: 2021-12-14 15:25:44
- * @LastEditors: zyj
+ * @LastEditTime: 2021-12-21 13:47:42
+ * @LastEditors: Please set LastEditors
  * @Description: 
  * @FilePath: /am/server/am-server/app/router.js
  * 别乱动！
@@ -84,7 +84,7 @@ module.exports = app => {
   router.get('/dashboard/queryEngineerBindDeviceNumber', controller.dashboard.queryEngineerBindDeviceNumber);
   router.get('/dashboard/findEngineerDeviceTree', controller.dashboard.findEngineerDeviceTree);
   router.get('/dashboard/queryMouthData', controller.dashboard.queryMouthData);
-
+  router.get('/dashboard/queryEngineerNumber', controller.dashboard.queryEngineerNumber);
 
   //系统统计信息相关接口
   router.get('/count/countAll', controller.count.countAll);

@@ -1,8 +1,8 @@
 /*
  * @Author: HeAo
  * @Date: 2021-12-08 16:38:40
- * @LastEditTime: 2021-12-10 15:29:20
- * @LastEditors: HeAo
+ * @LastEditTime: 2021-12-21 13:48:51
+ * @LastEditors: Please set LastEditors
  * @Description:
  * @FilePath: \am-server\app\controller\dashboard.js
  */
@@ -64,6 +64,21 @@ class DashboardController extends Controller {
     const data = await service.dashboard.queryMouthData(ctx.query)
     ctx.body = Message.success(data)
   }
+
+/**
+   * @Router get /dashboard/queryEngineerNumber
+   * @summary 统计工程监测情况
+   * @apikey
+  */
+ async queryEngineerNumber () {
+  const { ctx, service } = this
+  const data = await service.dashboard.queryEngineerNumber()
+  ctx.body = Message.success(data)
 }
+
+
+}
+
+
 
 module.exports = DashboardController
