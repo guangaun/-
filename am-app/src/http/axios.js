@@ -2,8 +2,8 @@
  * @Description: 
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
- * @LastEditors: charles
- * @LastEditTime: 2021-12-14 21:57:24
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-12-21 14:34:09
  */
 import axios from 'axios';
 import qs from 'qs'
@@ -96,4 +96,3 @@ async function logout() {
 }
 
 export default service;
-

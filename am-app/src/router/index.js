@@ -2,8 +2,8 @@
  * @Description: 
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
- * @LastEditors: charles
- * @LastEditTime: 2021-12-14 21:16:52
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-12-21 14:27:30
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -12,6 +12,7 @@ import Manager from '../views/manager/Index'
 import Home from '../views/manager/Home'
 import Order from '../views/manager/Order'
 import User from '../views/manager/User'
+import Complete from '../views/manager/Complete'
 // 登录页面
 import Login from '../views/Login'
 import { getToken } from '../utils/auth'
@@ -54,6 +55,9 @@ const routes = [
       },{
         path: 'user',
         component: User,
+      },{
+        path: 'complete',
+        component: Complete,
       }]
   },
   {
