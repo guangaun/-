@@ -2,11 +2,160 @@
  * @Description: 工单详情
  * @Author: charles
  * @Date: 2021-12-14 22:10:42
- * @LastEditors: charles
- * @LastEditTime: 2021-12-14 22:10:43
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-12-21 21:14:10
 -->
 <template>
-  <div>
-    工单详情
+  <div class="engineer_details">
+    <el-button type="primary" size="small" @click="backhandler">返回</el-button>
+    <div class="engineer">
+      <h3>工单信息</h3>
+      <el-row>
+        <el-col :span="12">
+          <span class="label">工程名称</span>
+          <span class="value">{{engineer.name}}</span>
+        </el-col>       
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <span class="label">设备名称</span>
+          <span class="value">{{engineer.serial_number}}</span>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <span class="label">维修工</span>
+          <span class="value">{{engineer.status}}</span>
+        </el-col>        
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <span class="label">报修原因</span>
+          <span class="value">{{engineer.type}}</span>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <span class="label">完成记录</span>
+          <span class="value">{{engineer.address}}</span>
+        </el-col>        
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <span class="label">类型</span>
+          <span class="value">{{engineer.create_time}}</span>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <span class="label">状态</span>
+          <span class="value">{{engineer.status}}</span>
+        </el-col>
+      </el-row>
+    </div>    
+    <!-- 模态框 -->
+    <el-dialog title="绑定设备" :visible.sync="visible">
+      <el-form :model="form" label-width="100px">
+        <el-form-item label="设备" >
+          <el-select v-model="form.device_id">
+            <el-option 
+              v-for="c in devices" 
+              :key="c.id" 
+              :label="c.name" 
+              :value="c.id"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="经度" >
+          <el-input v-model="form.latitude" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="纬度" >
+          <el-input v-model="form.longitude" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="监控视频" >
+          <el-input v-model="form.video" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="small" @click="visible = false">取 消</el-button>
+        <el-button size="small" type="primary" @click="submitHandler">确 定</el-button>
+      </div>
+    </el-dialog>    
   </div>
 </template>
+<script>
+import {get} from '@/utils/request'
+export default {
+  data(){
+    return {
+      engineer:{},
+      visible:false,
+      form:{},
+      devices:[],
+      bindedDevices:[]
+    }
+  },
+  mounted() {
+    this.engineer = this.$route.query;
+    // 查询所有未绑定的设备
+    this.loadUnbindDevices();
+    // 查询该工程上绑定的所有设备
+    this.loadEngineerDevices();
+  },
+  methods:{
+    toOnlineHandler(row){
+      let url = "/device/openDevice"
+      get(url,{id:row.id}).then(resp =>{
+        this.$message({type:"success",message:resp.message});
+        this.loadEngineerDevices();
+      })
+    },
+    toOfflineHandler(row){
+      let url = "/device/closeDevice"
+      get(url,{id:row.id}).then(resp=>{
+        this.$message({type:"success",message:resp.message});
+        this.loadEngineerDevices();
+      })
+    },
+    // 加载该工程绑定的设备信息
+    loadEngineerDevices(){
+      let url = "/device/pageQuery"
+      let params = {page:1,pageSize:1000,engineer_id:this.engineer.id}
+      get(url,params).then(resp => {
+        this.bindedDevices = resp.data.list;
+      })
+    },
+    loadUnbindDevices(){
+      let url = "/device/pageQuery";
+      let params = {page:1,pageSize:1000,bind_status:0}
+      get(url,params).then(resp => {
+        this.devices = resp.data.list;
+      })
+    },
+    toBindHandler(){
+      this.visible = true;
+      this.form = {
+        engineer_id:this.engineer.id
+      }
+    },
+    submitHandler(){
+      let url = "/engineer/bindService"
+      get(url,this.form).then(resp => {
+        this.$message({type:"success",message:resp.message});
+        this.visible = false;
+        this.loadEngineerDevices();
+        this.loadUnbindDevices();
+      })
+    },
+    backhandler(){
+      this.$router.go(-1);
+    }
+  }
+}
+</script>
+<style scoped>
+.engineer_details .engineer .label{
+  font-weight: bold;
+  padding-right: 5px;
+  line-height: 2.4em;
+}
+</style>

@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 15:42:24
+ * @LastEditTime: 2021-12-21 17:32:41
 -->
 <template>
   <div>
@@ -86,10 +86,9 @@ export default {
   methods:{
     //工单详情
     toDetailsHandler(row){
-      let url = "/workorder/findById"
-        get(url,{id:row.id}).then(resp =>{
-        this.params.page = 1;
-        this.loadWorkorders();
+      this.$router.push({
+        path:'/am/order/Details',
+        query:row
       })
     },
     // 取消工单
