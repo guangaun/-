@@ -11,15 +11,15 @@
       <div class="content_one">
         <!-- 左侧 -->
         <div class="content_one_left">
-          <div class="content_one_left_1 chart_box">
-            <Box title="实时监测数据">
+          <div class="content_one_left_1 chart_box" >
+            <Box title="设备当月信息">
               <template v-slot:content>
                 <Left1/>
               </template>
             </Box>
           </div>
           <div class="content_one_left_2 chart_box">
-            <Box title="设备分布状态">
+            <Box title="设备状态统计">
               <template v-slot:content>
                 <Left2/>
               </template>
@@ -39,7 +39,7 @@
         <!-- 右侧 -->
         <div class="content_one_right">
           <div class="content_one_right_1 chart_box">
-            <Box title="设备月报">
+            <Box title="工程监测情况">
               <template v-slot:content>
                 <Right1/>
               </template>
@@ -58,29 +58,24 @@
       <!-- /第一行 -->
       <!-- 第二行 -->
       <div class="content_two">
-        <div class="content_tow_1 chart_box">
-          <Box title="服务事项概览">
+        <div class="content_tow_1 chart_box" style="width:50%">
+          <Box title="设备当月信息">
             <template v-slot:content>
               <Bottom1/>
             </template>
           </Box>
         </div>
-        <div class="content_tow_2 chart_box">
+        <!-- 第二行 -->
+      <div class="content_tow_2 chart_box">
           <Box title="监测点信息">
             <template v-slot:content>
               <Bottom2/>
             </template>
           </Box>
         </div>
-        <div class="content_tow_3 chart_box">
-          <Box title="实时颗粒物检测">
-            <template v-slot:content>
-              <Bottom3/>
-            </template>
-          </Box>
-        </div>
-        <div class="content_tow_4 chart_box">
-          <Box title="报警信息">
+        
+        <div class="content_tow_4 chart_box" style="width:50%">
+          <Box title="设备数量统计">
             <template v-slot:content>
               <Bottom4/>
             </template>

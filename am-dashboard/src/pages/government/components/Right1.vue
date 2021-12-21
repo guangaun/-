@@ -3,13 +3,13 @@
  * @Author: charles
  * @Date: 2021-05-05 22:02:56
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-20 23:04:22
+ * @LastEditTime: 2021-12-21 14:37:23
 -->
 <template>
- <div ref="Right1_container" style="height:95%"></div>
+  <div ref="right1_container" style="height:95%"></div>
 </template>
 <script>
-import { Bar } from '@antv/g2plot';
+import { Column } from '@antv/g2plot';
 import {get} from '../../../utils/request'
 export default {
   data(){
@@ -26,32 +26,56 @@ export default {
   methods:{
    // 查询数据统计 ajax 异步的javascript和xml
     async loadData(){
-      let url = "/dashboard/queryEngineerBindDeviceNumber"
+      let url = "/dashboard/queryEngineerNumber"
       let resp = await get(url);
       this.dd = resp.data;
     },
     initChart(){    //初始化图表
       const data =this.dd;
-      const bar = new Bar(this.$refs.Right1_container, {
+       const columnPlot = new Column(this.$refs.right1_container, {
   data,
-  xField: 'value',
-  yField: 'type',
-   yAxis: {
+  xField: 'type',
+  yField: 'value',
+    color:'l(90) 0:#D1D1FF 1:#7C82EA',
+   xAxis: {
           label: {
             style: {
               fill: "white",
               fontFamily: "TencentSans",
-              fontSize: 8,
+              fontSize: 10,
             },
           },
         },
-  seriesField: 'value',
-  legend: {
-    position: 'top-left',
+         yAxis: {
+          label: {
+            style: {
+              fill: "white",
+              fontFamily: "TencentSans",
+              fontSize: 10,
+            },
+          },
+        },
+  label: {
+    // 可手动配置 label 数据标签位置
+    position: 'middle', // 'top', 'bottom', 'middle',
+    // 配置样式
+    style: {
+      fill: '#FFFFFF',
+      opacity: 0.6,
+    },
+  },
+  
+  meta: {
+    type: {
+      alias: '状态',
+    },
+    sales: {
+      alias: '数量',
+    },
   },
 });
 
-bar.render();
+columnPlot.render();
     }
   }
 }

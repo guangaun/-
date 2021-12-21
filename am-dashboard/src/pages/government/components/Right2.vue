@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-05-05 22:02:56
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-19 15:03:33
+ * @LastEditTime: 2021-12-21 16:16:48
 -->
 <template>
  <!--1. 容器 -->
@@ -51,6 +51,7 @@ export default {
             
           },
         },
+        
   geometryOptions: [
     {
       geometry: 'line',

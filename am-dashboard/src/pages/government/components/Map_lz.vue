@@ -1,27 +1,27 @@
 <!--
  * @Author: your name
  * @Date: 2021-12-20 15:05:48
- * @LastEditTime: 2021-12-20 16:37:52
+ * @LastEditTime: 2021-12-21 21:39:47
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \group-2\am-dashboard\src\pages\government\components\Map_lz.vue
 -->
 <template>
-    <div ref="map_container" style="height:100%;background:%fff"></div>
+  <div ref="map_container" style="height:100%;background:%fff"></div>
 </template>
 <script>
+import {get} from '../../../utils/request'
 export default {
-    data(){
-        return {
-            map:null
-        }
-    },
-    mounted(){
-        //初始化
-        this.initMap();
-        
-    },
-    methods:{
+  data(){
+    return {
+      map:null,
+    }
+  },
+  mounted() {
+    // 1. 初始化
+    this.initMap();
+  },
+ methods:{
         initMap(){
            //初始化地图
            let container = this.$refs.map_container;
@@ -31,7 +31,7 @@ export default {
              center: [103.834228,36.060798],//中心点坐标
              viewMode:'3D'//使用3D视图
     });
-    this.map=map;
+    this.map=map;//讲map保存为一个全局变量
     // 行政区轮廓
       let polygons=[];
       var opts = {
@@ -61,32 +61,39 @@ export default {
           map.add(polygons)
           map.setFitView(polygons);//视口自适应
       });
-       let marker1 = new AMap.Marker({
-          position:[103.698965,36.090771],//位置
-          title:'one',
-          extData:{
-            id:1,
-            name:'one'
-          }
+      // 3. 打点 查找到所有的工程设备
+      let url = "/dashboard​/findEngineerDeviceTree"
+      get(url).then(resp => {
+        let eds = resp.data;
+        // 所有设备
+        let devices = [];
+        eds.forEach(item => {
+          // 缓存工程，将工程绑定到
+          
+          devices.push(...item.children)
+        })
+        // 将设备转换为点位
+        console.log(devices)
+        devices.forEach(d => {
+           // 1. 创建点
+          let marker = new AMap.Marker({
+            position:d.position,//位置
+            title:d.name,
+            extData:d
+          })
+          // 2. 为点绑定事件
+          marker.on('click',function(){
+            console.log(this.getExtData());
+            let device_id = this.getExtData().id;
+            let engineer_id = this.getExtData().engineer_id;
+            alert(device_id+"="+engineer_id);
+          })
+          // 3. 确认打点
+          map.add(marker);
+        })
       })
-      let marker2 = new AMap.Marker({
-          position:[103.692082,36.096108],//位置
-          title:'two',
-          extData:{
-            id:2,
-            name:'two'
-          }
-      })
-      marker1.on('click',function(){
-        console.log(this.getExtData());
-      })
-      marker2.on('click',function(){
-        console.log(this.getExtData());
-      })
-    map.add(marker1);//添加到地图
-    map.add(marker2);//添加到地图
-        }
-     
+  
     }
+  }
 }
 </script>

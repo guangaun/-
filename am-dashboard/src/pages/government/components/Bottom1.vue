@@ -3,10 +3,10 @@
  * @Author: charles
  * @Date: 2021-05-05 22:02:56
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-20 23:07:46
+ * @LastEditTime: 2021-12-21 20:34:16
 -->
 <template>
-  <div ref="bottom1_container" style="height:95%"></div>
+ <div ref="Bottom1_container" style="height:95%"></div>
 </template>
 <script>
 import { Column } from '@antv/g2plot';
@@ -26,37 +26,44 @@ export default {
   methods:{
    // 查询数据统计 ajax 异步的javascript和xml
     async loadData(){
-      let url = "/dashboard/queryMouthData"
+      let url = "/dashboard/queryEngineerBindDeviceNumber"
       let resp = await get(url);
       this.dd = resp.data;
     },
     initChart(){    //初始化图表
       const data =this.dd;
-       const columnPlot = new Column(this.$refs.bottom1_container, {
-        data,
-        xField: 'date',
-        yField: 'value',
-        xAxis: {
-          label: {
+      const column = new Column(this.$refs.Bottom1_container, {
+      data,
+      xField: 'type',
+      yField: 'value',
+      xAxis: {
+        label: {
+          rotate: -45,
+          offset: 25,
+          style: {
+              fill: "white",
+              fontFamily: "TencentSans",
+              fontSize: 10,
+            },
+          autoRotate: false,
+        },
+      },
+      yAxis: {
+         label: {
             style: {
               fill: "white",
               fontFamily: "TencentSans",
               fontSize: 10,
             },
+            
           },
         },
-         yAxis: {
-          label: {
-            style: {
-              fill: "white",
-              fontFamily: "TencentSans",
-              fontSize: 10,
-            },
-          },
-        },
-      });
+      scrollbar: {
+        type: 'horizontal',
+      },
+    });
 
-      columnPlot.render();
+    column.render();
     }
   }
 }

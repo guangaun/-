@@ -3,62 +3,58 @@
  * @Author: charles
  * @Date: 2021-05-05 22:02:56
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-19 09:29:50
+ * @LastEditTime: 2021-12-21 20:55:07
 -->
 <template>
- <!--1. 容器 -->
-  <div ref="Bottom4_container" style="height:95%"></div>
+ <div ref="Bottom4_container" style="height:95%"></div>
 </template>
-
 <script>
 import { Bar } from '@antv/g2plot';
-
+import {get} from '../../../utils/request'
 export default {
- mounted () {
-   this.initChart();
+  data(){
+    return{
+      dd:[]
+    }
+  },
+  async mounted() {    
+    //查询数据
+    await this.loadData();  
+     //页面渲染的时候初始化图标
+    this.initChart()
   },
   methods:{
-    initChart(){
-      const data=[
-          { year: '12月', value: 38 },
-          { year: '9月', value: 52 },
-          { year: '6月', value: 61 },
-          { year: '3月', value: 145 },
+   // 查询数据统计 ajax 异步的javascript和xml
+    async loadData(){
+      let url = "/dashboard/queryEngineerBindDeviceNumber"
+      let resp = await get(url);
+      this.dd = resp.data;
+    },
+    initChart(){    //初始化图表
+      const data =this.dd;
+      const bar = new Bar(this.$refs.Bottom4_container, {
+  data,
+  xField: 'value',
+  yField: 'type',
+   yAxis: {
+          label: {
           
-      ]
-      const bar = new Bar(this.$refs.Bottom4_container,{
-        data,
-        colorField: 'type',
-         color: ['l(90) 0:#8589ea 1:#cfcefe',  'l(90) 0:#0ac9c7 1:#7df3f2', 'l(90) 0:#7d82ea 1:#7ef3f2','l(90) 0:#c3f7f9 1:#0ab6ee'
-               ],
-        xField: 'value',
-        yField: 'year',
-        xAxis: {
-          label: {
             style: {
               fill: "white",
               fontFamily: "TencentSans",
-              fontSize: 16,
+              fontSize: 10,
+              content:"",
             },
           },
         },
-         yAxis: {
-          label: {
-            style: {
-              fill: "white",
-              fontFamily: "TencentSans",
-              fontSize: 16,
-            },
-          },
-        },
-        seriesField: 'year',
-        legend: {
-          position: 'top-left',
-        },
-      });
+  seriesField: 'value',
+  legend: {
+    position: 'top-left',
+  },
+});
 
-      bar.render();
-   }
+bar.render();
+    }
   }
 }
 </script>
