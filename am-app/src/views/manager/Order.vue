@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 14:34:21
+ * @LastEditTime: 2021-12-22 15:26:19
 -->
 <template>
   <div class="order">
@@ -30,14 +30,22 @@
             <div>描述： {{o.bill_why}} </div>
           </van-col>
         </van-row>
-        <div class="btns">
+         <div class="btns">
           <van-button 
             v-if="o.status === '进行中'" 
             plain hairline size="small" 
           icon="https://img01.yzcdn.cn/vant/user-active.png" type="info" @click="toCompeleteOrderHandler(o)">完成接单</van-button>
         </div>
-      </div>
+         
+        </div>
     </div>
+    <div>
+            <van-pagination
+              :v-model="params.page"
+              :total-items="workOrderData.total"
+              :itwms-per-page="workOrderData.pageSize"
+              @change="changePage"/>
+           </div>
   </div>
 </template>
 <script>
@@ -63,6 +71,10 @@ export default {
     this.loadWorkOrder();
   },
   methods:{
+    changePage( size){
+        this.params.page= size,
+        this.loadWorkOrder();
+    },
     // 完成工单
     toCompeleteOrderHandler(row){
       this.$router.push({
