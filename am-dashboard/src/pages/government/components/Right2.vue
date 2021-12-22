@@ -3,37 +3,74 @@
  * @Author: charles
  * @Date: 2021-05-05 22:02:56
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 16:16:48
+ * @LastEditTime: 2021-12-22 14:06:54
 -->
 <template>
- <!--1. 容器 -->
-  <div ref="Right2_container" style="height:95%"></div>
+  <!--1. 容器 -->
+  <div ref="Right2_container" style="height: 95%"></div>
 </template>
 <script>
-import { DualAxes } from '@antv/g2plot';
+// 2. 导入图表构造函数
+import { Area } from '@antv/g2plot';
+import {mapState} from 'vuex'
+import { get } from '../../../utils/request';
+import moment from 'moment'
 export default {
-  mounted () {
-   this.initChart();
- },
+  data(){
+    return {
+      monitorData:[],
+      chart:null
+    }
+  },
+  mounted() {
+    // 4. 在页面渲染完成后调用图表的渲染
+    this.initChart();
+  },
+  computed: {
+    ...mapState(['ed'])
+  },
+  watch: {
+    ed:{
+      async handler(params){
+        // 重新加载数据
+        await this.loadMonitorData();
+        this.changeData();
+      },
+      deep:true
+    }
+  },
   methods:{
+    changeData(){
+      if(this.chart){
+        this.chart.changeData(this.monitorData)
+      }
+    },
+    async loadMonitorData(){
+      let url = "/dashboard/pageQueryTodayData"
+      let params = {
+        page:1,
+        pageSize:20,
+        ...this.ed
+      }
+      let resp =await get(url,params);
+      let data = resp.data.list.map(item => {
+        return {
+          time:moment(item.insert_time).format('h:mm:ss'),
+          value:+item.noise
+        }
+      })
+      this.monitorData = data;
+    },
+    // 3. 初始化图表
     initChart(){
-      const data=[
-        { year: '1991', value: 3, count: 10 },
-        { year: '1992', value: 4, count: 4 },
-        { year: '1993', value: 3.5, count: 5 },
-        { year: '1994', value: 5, count: 5 },
-        { year: '1995', value: 4.9, count: 4.9 },
-        { year: '1996', value: 6, count: 35 },
-        { year: '1997', value: 7, count: 7 },
-        { year: '1998', value: 9, count: 1 },
-        { year: '1999', value: 13, count: 20 },
-      ]
-      const dualAxes = new DualAxes(this.$refs.Right2_container, {
-  data: [data, data],
-  xField: 'year',
-  yField: ['value', 'count'],
-  xAxis: {
+      const data = this.monitorData;
+      const area = new Area(this.$refs.Right2_container, {
+      data,
+      xField: 'time',
+      yField: 'value',
+      xAxis: {
           label: {
+           
             style: {
               fill: "white",
               fontFamily: "TencentSans",
@@ -41,47 +78,39 @@ export default {
             },
           },
         },
-   yAxis: {
-         label: {
+        yAxis: {
+          label: {
             style: {
               fill: "white",
               fontFamily: "TencentSans",
-              fontSize: 10,
-            },
-            
+              fontSize: 16,
+            }
+          }
+        },
+      annotations: [
+        {
+          type: 'text',
+          position: ['min', 'median'],
+          content: '中位数',
+          offsetY: -4,
+          style: {
+            textBaseline: 'bottom',
           },
         },
-        
-  geometryOptions: [
-    {
-      geometry: 'line',
-      color: '#5B8FF9',
-       label: {
-            style: {
-              fill: "white",
-              fontFamily: "TencentSans",
-              fontSize: 10,
-            },
-            
+        {
+          type: 'line',
+          start: ['min', 'median'],
+          end: ['max', 'median'],
+          style: {
+            stroke: 'red',
+            lineDash: [2, 2],
           },
-    },
-    {
-      geometry: 'line',
-      color: '#5AD8A6',
-       label: {
-            style: {
-              fill: "white",
-              fontFamily: "TencentSans",
-              fontSize: 10,
-            },
-            
-          },
-    },
-  ],
-});
-    dualAxes.render();
-   }
+        },
+      ],
+    });
+      area.render();
+      this.chart = area;
+    }
   }
-
 }
 </script>

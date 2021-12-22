@@ -46,7 +46,7 @@
             </Box>
           </div>
           <div class="content_one_right_2 chart_box">
-            <Box title="实时温湿度数据">
+            <Box title="噪音监测">
               <template v-slot:content>
                 <Right2/>
               </template>
@@ -59,7 +59,7 @@
       <!-- 第二行 -->
       <div class="content_two">
         <div class="content_tow_1 chart_box" style="width:50%">
-          <Box title="设备当月信息">
+          <Box title="实时温度曲线">
             <template v-slot:content>
               <Bottom1/>
             </template>
@@ -67,7 +67,7 @@
         </div>
         <!-- 第二行 -->
       <div class="content_tow_2 chart_box">
-          <Box title="监测点信息">
+          <Box title="pm10、pm25">
             <template v-slot:content>
               <Bottom2/>
             </template>
