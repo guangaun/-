@@ -1,10 +1,3 @@
-<!--
- * @Description: 
- * @Author: charles
- * @Date: 2021-12-14 22:15:01
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 10:27:29
--->
 <template>
   <div class="engineer_pointinfo">
     <el-row>
@@ -14,53 +7,76 @@
       </el-col>
       <el-col :span="18">
         <div v-if="params.device_id"> 
-        <div>
-          {{enginnerdata}}
-        </div>
         <div class="engineerinfo" >
-          <h3>工程信息</h3>
+          <!-- 工程信息 -->
+          <h3 backgroung="#303133">工程信息</h3>
       <el-row >
         <el-col :span="12">
           <span class="label" >工程名称</span>
-          <span class="value">{{engineerinfo.name}}</span>
+          <span class="value">{{pointinfo.engineer.name}}</span>
         </el-col>
         <el-col :span="12">
           <span class="label">工程编号</span>
-          <span class="value">{{engineerinfo.serial_number}}</span>
+          <span class="value">{{pointinfo.engineer.serial_number}}</span>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <span class="label">工程状态</span>
-          <span class="value">{{engineerinfo.status}}</span>
+          <span class="value">{{pointinfo.engineer.status}}</span>
         </el-col>
         <el-col :span="12">
           <span class="label">工程类型</span>
-          <span class="value">{{engineerinfo.type}}</span>
+          <span class="value">{{pointinfo.engineer.type}}</span>
         </el-col>
       </el-row>
          <el-row>
         <el-col :span="12">
           <span class="label">开始时间</span>
-          <span class="value">{{engineerinfo.begin_time}}</span>
+          <span class="value">{{pointinfo.engineer.begin_time}}</span>
         </el-col>
         <el-col :span="12">
           <span class="label">结束时间</span>
-          <span class="value">{{engineerinfo.end_time}}</span>
+          <span class="value">{{pointinfo.engineer.end_time}}</span>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <span class="label">地址</span>
-          <span class="value">{{engineerinfo.address}}</span>
+          <span class="value">{{pointinfo.engineer.address}}</span>
+        </el-col>
+      </el-row>
+      <!-- /工程信息结束 -->
+      <!-- 设备信息 -->
+    
+        <h3>设备信息</h3>
+      <el-row >
+        <el-col :span="12">
+          <span class="label" >设备名称</span>
+          <span class="value">{{pointinfo.name}}</span>
+        </el-col>
+        <el-col :span="12">
+          <span class="label">设备编号</span>
+          <span class="value">{{pointinfo.serial_number}}</span>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
-          <span class="label">工作负责人</span>
-          <span class="value">{{engineerinfo.charge_name}}</span>
+          <span class="label">绑定状态</span>
+          <span >
+            <el-tag size="mini" type="success" v-if="pointinfo.bind_status == 1">已绑定</el-tag>
+          <el-tag size="mini" type="danger" v-else>未绑定</el-tag>
+          </span>
+        </el-col>
+        <el-col :span="12">
+          <span class="label">在线状态</span>
+          <span>
+          <el-tag size="mini" type="success" v-if="pointinfo.online_status == 1">已连接</el-tag>
+          <el-tag size="mini" type="danger" v-else>未连接</el-tag>
+          </span>
         </el-col>
       </el-row>
+      <!-- /设备信息结束 -->
         </div>
            </div>
         <div v-else style="line-height:3em;color:red;text-align:center">请选择设备</div>
@@ -75,19 +91,17 @@ export default {
   // 变量
   data(){
     return {
-      engineerinfo:{},
+    
 
       defaultProps:{
         
         children: 'children',
         label: 'name'
       },
+    
       eds:[],
-      params:{
-        page:1,
-        pageSize:10,
-      },
-      engineerdata:{list:[]},
+      params:{},
+      pointinfo:[],
     }
   },
   // 监听器
@@ -103,9 +117,9 @@ export default {
   methods:{
     //加载数据
     loadEngineer(){
-      let url="/engineer/pageQuery"
-      get(url,this.params).then(resp=>{
-        this.engineerdata=resp.data;
+      let url="/device/findDeviceDetail"
+      get(url,{id:this.params.device_id}).then(resp=>{
+        this.pointinfo=resp.data;
       })
 
     },
@@ -129,9 +143,10 @@ export default {
   // 页面加载完毕后执行
   mounted() {
     this.loadEngineerDevices(); 
-    this.engineerinfo = this.$route.params;
+    this.engineerinfo = this.$route.query;
    
   },
+ 
 }
 </script>
 <style scoped>

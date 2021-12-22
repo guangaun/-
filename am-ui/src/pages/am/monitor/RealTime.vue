@@ -3,7 +3,8 @@
  * @Author: charles
  * @Date: 2021-12-14 22:13:44
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 10:20:40
+ * @LastEditTime: 2021-12-22 21:24:27
+ * @LastEditTime: 2021-12-22 19:58:51
 -->
 <template>
   <div>
@@ -34,62 +35,103 @@
         <div v-else style="line-height:3em;color:red;text-align:center">请选择设备</div>
       </el-col>
     </el-row>
+      <el-col
+        :span="6"
+        style="padding-right: 0.5em; border-right: 2px solid #f4f4f4">
+      </el-col>
+      <el-col :span="18">
+        <div v-if="params.device_id">
+          <div ref="container" style="height:300px"></div>
+        </div>
+      </el-col>
+    <div></div>
   </div>
 </template>
 
 <script>
-import {get} from '@/utils/request'
+
+import { get } from "@/utils/request";
+import { Area } from "@antv/g2plot";
 export default {
+  filterText: '',
   // 变量
-  data(){
+  data() {
     return {
-      defaultProps:{
-        children: 'children',
-        label: 'name'
+      filterText: '',
+      defaultProps: {
+        children: "children",
+        label: "name",
       },
-      eds:[],
-      params:{
-        page:1,
-        pageSize:10
+      eds: [],
+      params: {
+        page: 1,
+        pageSize: 10,
       },
-      monitorData:{list:[]}
-    }
+      monitorData: { list: [] },
+    };
   },
   // 监听器
-  watch:{
-    params:{
-      handler(){
-        this.loadMonitor()
+  watch: {
+      filterText(val) {
+        this.$refs.tree.filter(val);
       },
-      deep:true
-    }
+    params: {
+      handler() {
+        this.loadMonitor();
+      },
+      deep: true,
+    },
   },
   // 方法
-  methods:{
-    // 加载数据
-    loadMonitor(){
-      let url = "/monitor/pageQueryTodayData"
-      get(url,this.params).then(resp => {
-        this.monitorData = resp.data;
+  methods: {
+      filterNode(value, eds) {
+        if (!value) return true;
+        return eds.name.indexOf(value) !== -1;
+      },
+    initChart() {
+      const data =  this.monitorData.list.map(item => {
+        return {
+           insert_time:item.insert_time,
+           tsp: +item.tsp
+        }
       })
+      const area = new Area(this.$refs.container, {
+        data,
+        xField: "insert_time",
+        yField: "tsp",
+        meta: {
+          timePeriod: {
+            range: [0, 1],
+          },
+        },
+      });
+      area.render();
     },
-    handleNodeClick(node){
-      if(node.engineer_id ){
+    // 加载数据
+    loadMonitor() {
+      let url = "/monitor/pageQueryTodayData";
+      get(url, this.params).then((resp) => {
+        this.monitorData = resp.data;
+        this.initChart();
+      });
+    },
+    handleNodeClick(node) {
+      if (node.engineer_id) {
         // 点击了设备
-        this.$set(this.params,'engineer_id',node.engineer_id)
-        this.$set(this.params,'device_id',node.id)
+        this.$set(this.params, "engineer_id", node.engineer_id);
+        this.$set(this.params, "device_id", node.id);
       }
     },
     // 加载工程设备树
-    loadEngineerDevices(){
-      let url = "/engineer/findEngineerDeviceTree"
-      get(url).then(resp => {
+    loadEngineerDevices() {
+      let url = "/engineer/findEngineerDeviceTree";
+      get(url).then((resp) => {
         this.eds = resp.data;
-      })
+      });
     },
-    pageChangeHandler(page){
+    pageChangeHandler(page) {
       this.params.page = page;
-    }
+    },
   },
   // 页面加载完毕后执行
   mounted() {
