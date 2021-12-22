@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 14:02:29
+ * @LastEditTime: 2021-12-22 09:29:02
 -->
 <template>
   <div class="order">
@@ -18,9 +18,10 @@
       <div class="order" v-for="o in workOrderData.list" :key="o.id">
         <div class="time">{{o.create_time}}</div>
         <van-row>
-          <van-col span="6" style="text-align:center;font-size:48px">
-            <van-icon name="balance-list-o" />
+          <van-col span="6" style="text-align:center;font-size:80px">
+            <van-icon name="todo-list-o" />
           </van-col>
+          
           <van-col span="18">
             <div>类型： {{o.type}} </div>
             <div>状态： {{o.status}} </div>
@@ -32,8 +33,8 @@
         <div class="btns">
           <van-button 
             v-if="o.status === '进行中'" 
-            plain hairline size="mini" 
-            type="primary" @click="toCompeleteOrderHandler(o)">完成</van-button>
+            plain hairline size="small" 
+          icon="https://img01.yzcdn.cn/vant/user-active.png" type="info" @click="toCompeleteOrderHandler(o)">完成接单</van-button>
         </div>
       </div>
     </div>
@@ -50,7 +51,7 @@ export default {
       status:null,
       params:{
         page:1,
-        pageSize:100,
+        pageSize:10,
       },
       workOrderData:{list:[]}
     }
@@ -105,7 +106,9 @@ export default {
 }
 .order .order_list > .order > .time {
   line-height: 2.4em;
+  border-left: em;
   border-bottom: 1px solid #f4f4f4;
+  padding:.1em
 }
 .order .order_list > .order > .btns {
   padding: .5em;

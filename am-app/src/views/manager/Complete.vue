@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-12-21 11:35:05
- * @LastEditTime: 2021-12-21 14:38:44
+ * @LastEditTime: 2021-12-21 16:37:17
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \group-2\am-app\src\views\manager\Complete.vue
@@ -74,8 +74,8 @@ export default {
       })
       .catch(error => {
         file.status = "failed";
-        file.message = "上传失败";
-        Toast("图片上传失败:" + error + " 请返回重新上传");
+        file.message = "上传失败!";
+        Toast("图片上传失败!:" + error + " 请返回重新上传!");
       });
     }
   },
@@ -86,7 +86,7 @@ export default {
 </script>
 <style scoped>
 .workorder {
-  font-size: 12px;
+  font-size: 14px;
   color: #666;
   padding-bottom: 50px;
   background-color: #f4f4f4
