@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-12-22 10:44:34
- * @LastEditTime: 2021-12-22 14:34:11
+ * @LastEditTime: 2021-12-22 15:01:29
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \group-2\am-dashboard\src\pages\government\components\Bottom1.vue
@@ -70,6 +70,7 @@ export default {
         data: [data, data],
         xField: "time",
         yField: ["value1", "value2"],
+        
         xAxis: {
           label: {
            
