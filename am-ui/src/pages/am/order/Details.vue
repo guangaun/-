@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:10:42
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 10:47:33
+ * @LastEditTime: 2021-12-22 13:13:31
 -->
 <template>
   <div class="engineer_details">
@@ -117,6 +117,6 @@ export default {
 .engineer_details .engineer .label{
   font-weight: bold;
   padding-right: 5px;
-  line-height: 2.4em;
+  line-height: 2.5em;
 }
 </style>
