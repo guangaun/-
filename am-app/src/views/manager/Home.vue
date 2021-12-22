@@ -3,24 +3,24 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 21:40:09
+ * @LastEditTime: 2021-12-22 10:44:27
 -->
 <template>
   <div class="home">
     <van-nav-bar title="首页" />
     <div class="order_list">
       <div class="order" v-for="o in workOrderData.list" :key="o.id">
-        <div class="time">{{o.create_time}}</div>
+        <div class="time"> <strong> 申报时间：</strong> {{o.create_time|datefmt('YYYY-MM-DD HH:mm:ss')}} </div>
         <van-row>
           <van-col span="5" style="text-align:center;font-size:48px;position:bottom">
             <van-icon name="https://img01.yzcdn.cn/vant/logo.png" />
           </van-col>
           <van-col span="18">
-            <div>类型： {{o.type}} </div>
-            <div>状态： {{o.status}} </div>
-            <div>设备： {{o.device_name}} </div>
-            <div>工程： {{o.engineer_name}} </div>
-            <div>创建时间: {{o.create_time}} </div>
+            <div><strong>类型：</strong>  {{o.type}} </div>
+            <div><strong>状态： </strong> {{o.status}} </div>
+            <div><strong>设备： </strong> {{o.device_name}} </div>
+            <div><strong>工程： </strong> {{o.engineer_name}} </div>
+            <div><strong>创建时间:</strong>  {{o.create_time}} </div>
           </van-col>
         </van-row>
         <div class="btns">
