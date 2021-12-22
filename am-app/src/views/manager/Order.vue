@@ -93,13 +93,13 @@ export default {
   font-size: 14px;
   color: #666;
   padding-bottom: 50px;
-  background-color: #f4f4f4;
+  background-color: #e7e7e7;
 }
 .order .order_list{
   padding: .5em;
 }
 .order .order_list > .order {
-  background-color: #fff;
+  background-color: rgb(241, 241, 241);
   margin-bottom: .5em;
   border-radius: 5px;
   padding:.5em
