@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 11:44:16
+ * @LastEditTime: 2021-12-22 15:13:22
 -->
 
 <template>
@@ -19,7 +19,6 @@
        <img :src="info.user_face" alt="" v-if="info.user_face"/>
            <img src="../../assets/mxc.jpg" alt="" v-else>
       </van-uploader>
-       
       </div>
       <div class="name">{{info.name}}</div>
     </div>
@@ -117,19 +116,19 @@ export default {
   height: 20em;
   border-radius: 100%;
   box-sizing: border-box;
-  border:5px solid #1659a0;
   overflow:hidden;
   padding: 1em;
 }
 .header .name {
   line-height: 3em;
-  font-size: 16px;
+  font-size: 300px;
   color: #ffffff;
 
 }
 .header .photo img {
- width: 100%;
- border-radius: 100%;
+ width: 200px;
+ height: 200px;
+ border-radius: 50%;
 }
 
 .btn {
@@ -139,7 +138,7 @@ export default {
   text-align: center;
   border: 1px solid #16408f;
   border-radius: 1.5em;
-  background: #5c95ce;
+  background: #4580c0;
   color: rgb(36, 95, 75);
 }
 
