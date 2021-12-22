@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:02
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 13:20:22
+ * @LastEditTime: 2021-12-22 10:48:35
 -->
 <template>
   <div>
@@ -27,6 +27,8 @@
       <el-table-column label="设备编号" prop="serial_number" width="130" align="center"></el-table-column>
       <el-table-column label="设备名称" prop="name" width="150" align="center"></el-table-column>
       <el-table-column label="视频地址" prop="video" align="center"></el-table-column>
+      <el-table-column label="经度" prop="latitude" width="150" align="center"></el-table-column> 
+      <el-table-column label="纬度" prop="longitude" width="150" align="center"></el-table-column>
       <el-table-column label="在线状态" prop="online_status" width="130" align="center">
         <template slot-scope="scope">
           <el-tag size="mini" type="success" v-if="scope.row.online_status == 1">在线</el-tag>
@@ -45,7 +47,6 @@
         </template>
       </el-table-column>
     </el-table>
-
     <el-pagination
       layout="prev, pager, next"
       hide-on-single-page

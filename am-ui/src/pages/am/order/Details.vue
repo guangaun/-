@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:10:42
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 21:14:10
+ * @LastEditTime: 2021-12-22 10:47:33
 -->
 <template>
   <div class="engineer_details">
@@ -13,37 +13,37 @@
       <el-row>
         <el-col :span="12">
           <span class="label">工程名称</span>
-          <span class="value">{{engineer.name}}</span>
+          <span class="value">{{engineer.engineer_name}}</span>
         </el-col>       
       </el-row>
       <el-row>
         <el-col :span="12">
           <span class="label">设备名称</span>
-          <span class="value">{{engineer.serial_number}}</span>
+          <span class="value">{{engineer.device_name}}</span>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <span class="label">维修工</span>
-          <span class="value">{{engineer.status}}</span>
+          <span class="value">{{engineer.account_name}}</span>
         </el-col>        
       </el-row>
       <el-row>
         <el-col :span="12">
           <span class="label">报修原因</span>
-          <span class="value">{{engineer.type}}</span>
+          <span class="value">{{engineer.bill_why}}</span>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <span class="label">完成记录</span>
-          <span class="value">{{engineer.address}}</span>
+          <span class="value">{{engineer.finish_note}}</span>
         </el-col>        
       </el-row>
       <el-row>
         <el-col :span="12">
           <span class="label">类型</span>
-          <span class="value">{{engineer.create_time}}</span>
+          <span class="value">{{engineer.type}}</span>
         </el-col>
       </el-row>
       <el-row>
@@ -52,34 +52,8 @@
           <span class="value">{{engineer.status}}</span>
         </el-col>
       </el-row>
-    </div>    
-    <!-- 模态框 -->
-    <el-dialog title="绑定设备" :visible.sync="visible">
-      <el-form :model="form" label-width="100px">
-        <el-form-item label="设备" >
-          <el-select v-model="form.device_id">
-            <el-option 
-              v-for="c in devices" 
-              :key="c.id" 
-              :label="c.name" 
-              :value="c.id"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="经度" >
-          <el-input v-model="form.latitude" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="纬度" >
-          <el-input v-model="form.longitude" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="监控视频" >
-          <el-input v-model="form.video" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button size="small" @click="visible = false">取 消</el-button>
-        <el-button size="small" type="primary" @click="submitHandler">确 定</el-button>
-      </div>
-    </el-dialog>    
+    </div>  
+
   </div>
 </template>
 <script>
@@ -102,23 +76,10 @@ export default {
     this.loadEngineerDevices();
   },
   methods:{
-    toOnlineHandler(row){
-      let url = "/device/openDevice"
-      get(url,{id:row.id}).then(resp =>{
-        this.$message({type:"success",message:resp.message});
-        this.loadEngineerDevices();
-      })
-    },
-    toOfflineHandler(row){
-      let url = "/device/closeDevice"
-      get(url,{id:row.id}).then(resp=>{
-        this.$message({type:"success",message:resp.message});
-        this.loadEngineerDevices();
-      })
-    },
+    
     // 加载该工程绑定的设备信息
     loadEngineerDevices(){
-      let url = "/device/pageQuery"
+      let url = "/workorder/findById"
       let params = {page:1,pageSize:1000,engineer_id:this.engineer.id}
       get(url,params).then(resp => {
         this.bindedDevices = resp.data.list;

@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:06:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 15:29:56
+ * @LastEditTime: 2021-12-22 10:24:45
  * @LastEditTime: 2021-12-21 11:45:13
 -->
 <template>
@@ -27,11 +27,17 @@
     <el-table size="small" :data="engineerData.list">
       <el-table-column label="工程编号" prop="serial_number" width="100" align="center"></el-table-column>
       <el-table-column label="工程名称" prop="name" min-width="200" align="center"></el-table-column>
-      <el-table-column label="状态" prop="status" width="100" align="center"></el-table-column>
+      <el-table-column label="状态" prop="status" width="100" align="center">
+        <template slot-scope="scope">
+          <el-tag type="success" size="mini" v-if="scope.row.status == '监测中'">{{scope.row.status}}</el-tag>
+          <el-tag type="danger" size="mini" v-else-if="scope.row.status == '未绑定'">{{scope.row.status}}</el-tag>
+          <el-tag type="info" size="mini" v-else>{{scope.row.status}}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="工程类型" prop="type" width="100" align="center"></el-table-column>
       <el-table-column label="区域经理" prop="charge_name" width="100" align="center"></el-table-column>
       <el-table-column label="客户" prop="customer_name" width="100" align="center"></el-table-column>
-      <el-table-column label="联系方式" prop="customer_telephone" width="100" align="center"></el-table-column>
+      <el-table-column label="联系方式" prop="customer_telephone" width="140" align="center"></el-table-column>
       <el-table-column label="操作" width="200" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="toEditHandler(scope.row)">修改</el-button>

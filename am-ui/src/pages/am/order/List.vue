@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 17:32:41
+ * @LastEditTime: 2021-12-22 10:46:10
 -->
 <template>
   <div>
@@ -23,7 +23,7 @@
       </el-col>
     </el-row>
    
-    <el-table size="small" :data="workorderData.list">
+    <el-table size="small" :data="workorderData.list" border empty-text="当前数据没有，请添加数据">
       <el-table-column label="序号" type="index" :index="1" align="center"></el-table-column>
       <el-table-column type="expand">
         <template slot-scope="slot">
@@ -32,11 +32,19 @@
               <img style="width:100%" :src="p" alt="">
             </li>
           </ul>
-        </template>
+        </template>    
       </el-table-column>
       <el-table-column label="工程名称" prop="engineer_name" min-width="200" align="center"></el-table-column>
       <el-table-column label="设备名称" prop="device_name" width="150" align="center"></el-table-column>
+      <el-table-column label="维修工" prop="account_name" width="120" align="center">
+        <template slot-scope="scope">
+          <span style="font-size: small" v-if="scope.row.account_name == 'null'">无</span>
+          <span style="font-size: small" v-else>{{scope.row.account_name}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="问题描述" prop="bill_why" width="200" align="center"></el-table-column>
+      <el-table-column label="完成记录" prop="finish_note" width="130" align="center"></el-table-column>
+      <el-table-column label="下单时间" prop="create_time" width="150" align="center"></el-table-column>
       <el-table-column label="状态" prop="status" align="center">
         <template slot-scope="scope">
           <el-tag type="success" size="mini" v-if="scope.row.status == '已完成'">{{scope.row.status}}</el-tag>
@@ -44,15 +52,20 @@
           <el-tag type="danger" size="mini" v-else>{{scope.row.status}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="工单类型" prop="type" width="140" align="center"></el-table-column>
-      <el-table-column label="操作" width="140" align="center">
+      <el-table-column label="工单类型" prop="type" width="100" align="center">
+        <template slot-scope="scope">
+          <el-tag type="success" size="mini" v-if="scope.row.type == '安装'">{{scope.row.type}}</el-tag>
+          <el-tag type="danger" size="mini" v-else-if="scope.row.type == '拆机'">{{scope.row.type}}</el-tag>
+          <el-tag type="info" size="mini" v-else>{{scope.row.type}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="130" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="toDetailsHandler(scope.row)">详情</el-button>
           <el-button type="text" size="small" @click="toCancelHandler(scope.row)">取消</el-button>
         </template>
       </el-table-column>
     </el-table>
-
     <el-pagination
       layout="prev, pager, next"
       hide-on-single-page
