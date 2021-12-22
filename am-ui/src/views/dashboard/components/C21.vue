@@ -15,7 +15,7 @@
 
 <script>
 import { get } from "@/utils/request";
-import { log } from "_@antv_g2plot@2.4.1@@antv/g2plot/lib/utils";
+
 export default {
   data() {
     return {

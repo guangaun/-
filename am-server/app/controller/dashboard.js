@@ -1,7 +1,7 @@
 /*
  * @Author: HeAo
  * @Date: 2021-12-08 16:38:40
- * @LastEditTime: 2021-12-21 13:48:51
+ * @LastEditTime: 2021-12-22 13:25:11
  * @LastEditors: Please set LastEditors
  * @Description:
  * @FilePath: \am-server\app\controller\dashboard.js
@@ -76,6 +76,49 @@ class DashboardController extends Controller {
   ctx.body = Message.success(data)
 }
 
+  /**
+   * @Router get /dashboard/pageQueryTodayData
+   * @summary 分页多条件查询设备当天数据信息
+   * @description begin_time和end_time为一组数据，传都传，不传都不传，不允许传单个时间
+   * @request query string *page 当前页
+   * @request query string *pageSize 每页数据量
+   * @request query string engineer_id 工程id
+   * @request query string device_id 设备id
+   * @apikey
+  */
+   async pageQueryTodayData () {
+    const { ctx, service } = this
+    // 参数校验
+    ctx.validate({
+      page: 'string',
+      pageSize: 'string',
+    }, ctx.query)
+    const data = await service.monitor.pageQueryTodayData(ctx.query)
+    ctx.body = Message.success(data)
+  }
+
+  /**
+   * @Router get /dashboard/pageQueryData
+   * @summary 分页多条件查询设备数据信息
+   * @description begin_time和end_time为一组数据，传都传，不传都不传，不允许传单个时间
+   * @request query string *page 当前页
+   * @request query string *pageSize 每页数据量
+   * @request query string engineer_id 工程id
+   * @request query string device_id 设备id
+   * @request query string begin_time 开始时间
+   * @request query string end_time 结束时间
+   * @apikey
+  */
+   async pageQueryData () {
+    const { ctx, service } = this
+    // 参数校验
+    ctx.validate({
+      page: 'string',
+      pageSize: 'string',
+    }, ctx.query)
+    const data = await service.monitor.pageQuery(ctx.query)
+    ctx.body = Message.success(data)
+  }
 
 }
 
