@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 17:22:07
+ * @LastEditTime: 2021-12-22 10:28:13
 -->
 
 <template>
@@ -15,11 +15,11 @@
       <div class="name">{{info.name}}</div>
     </div>
     <van-cell-group>
-      <van-cell title="昵称" value="花开富贵" />
-      <van-cell title="性别" value="女"  />
-      <van-cell title="电话号码" value="18410010086" />
-      <van-cell title="选择出生日期" :value="date" @click="show = true" />
-      <van-calendar v-model="show" @confirm="onConfirm" />
+      <van-cell title="用户名" :value="userInfo.username" />
+      <van-cell title="姓名" :value="userInfo.realname" />
+      <van-cell title="性别"   :value="userInfo.gender=='male'?'男':'女'"/>
+      <van-cell title="电话号码"  :value="userInfo.telephone"/>
+      <van-cell title="出生日期"  :value="userInfo.birth | datefmt2('YYYY-MM-DD')"/>
     </van-cell-group>
     <van-cell title="所有订单" is-link to="/manager/order" />
     <div class="btn" @click="logoutHandler"> 退出登录 </div>
@@ -27,30 +27,35 @@
   </div>
 </template>
 <script>
+import {patch, get} from '../../http/axios';
 import {mapState, mapActions} from 'vuex'
 export default {
   data() {
     return {
-      date: '',
-      show: false,
-    };
+      userInfo:{},
+    }
+    },
+    created(){
+      this.getUserInfo()
   },
   methods:{
-     formatDate(date) {
-      return `${date.getMonth() + 1}/${date.getDate()}`;
-    },
-    onConfirm(date) {
-      this.show = false;
-      this.date = this.formatDate(date);
-    },
+    getUserInfo(){
+    get("/user/getInfo").then(res =>{
+      if(res && res.status==200 && res.data){
+        this.userInfo = res.data
+      }
+    })
+  },
     ...mapActions('user',['logout']),
     logoutHandler(){
-      this.logout();
+      this.logout().then(()=>{
+        this.$router.push({path:'/login'})
+      });
     }
   },
   computed:{
     ...mapState("user",["info"])
-  }
+  },
 }
 </script>
 
