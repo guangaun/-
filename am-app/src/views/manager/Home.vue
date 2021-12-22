@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 10:44:27
+ * @LastEditTime: 2021-12-22 14:38:54
 -->
 <template>
   <div class="home">
@@ -12,8 +12,8 @@
       <div class="order" v-for="o in workOrderData.list" :key="o.id">
         <div class="time"> <strong> 申报时间：</strong> {{o.create_time|datefmt('YYYY-MM-DD HH:mm:ss')}} </div>
         <van-row>
-          <van-col span="5" style="text-align:center;font-size:48px;position:bottom">
-            <van-icon name="https://img01.yzcdn.cn/vant/logo.png" />
+          <van-col span="6" style="text-align:center;font-size:80px;position:bottom">
+            <van-icon name="todo-list-o" />
           </van-col>
           <van-col span="18">
             <div><strong>类型：</strong>  {{o.type}} </div>
@@ -24,8 +24,8 @@
           </van-col>
         </van-row>
         <div class="btns">
-          <van-button plain hairline size="mini" type="primary" @click="toTakeOrderHandler(o.id)">接单</van-button>
-          <van-button plain hairline size="mini" type="primary" @click="toRefuseHandler(o.id)">拒绝接单</van-button>
+          <van-button plain hairline size="small" icon="https://img01.yzcdn.cn/vant/user-active.png" type="info" @click="toTakeOrderHandler(o.id)">接单</van-button>
+          <van-button plain hairline size="small" icon="https://img01.yzcdn.cn/vant/user-active.png" type="info" @click="toRefuseHandler(o.id)">拒绝接单</van-button>
         </div>
       </div>
     </div>
@@ -100,16 +100,16 @@ export default {
 </script>
 <style scoped>
 .home {
-  font-size: 12px;
+  font-size: 14px;
   color: #666;
   padding-bottom: 50px;
-  background-color: #f5f3f3;
+  background-color: #f1fafc;
 }
 .home .order_list{
   padding: .5em;
 }
 .home .order_list > .order {
-  background-color: rgb(163, 219, 228);
+  background-color: rgb(203, 240, 247);
   margin-bottom: .5em;
   border-radius: 5px;
   padding:.5em
