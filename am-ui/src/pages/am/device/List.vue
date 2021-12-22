@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:02
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 10:48:35
+ * @LastEditTime: 2021-12-22 11:03:41
 -->
 <template>
   <div>
@@ -14,7 +14,7 @@
             <el-input v-model="params.name"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="queryHandler">搜索</el-button>
+              <el-button type="primary" @click="queryHandler">搜索</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -23,7 +23,7 @@
       </el-col>
     </el-row>
    
-    <el-table size="small" :data="deviceData.list">
+    <el-table size="small" :data="deviceData.list" border>
       <el-table-column label="设备编号" prop="serial_number" width="130" align="center"></el-table-column>
       <el-table-column label="设备名称" prop="name" width="150" align="center"></el-table-column>
       <el-table-column label="视频地址" prop="video" align="center"></el-table-column>

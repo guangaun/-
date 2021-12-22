@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 10:46:10
+ * @LastEditTime: 2021-12-22 11:09:15
 -->
 <template>
   <div>
@@ -14,8 +14,7 @@
             <el-input v-model="params.name"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="queryHandler">搜索</el-button>
-              
+            <el-button type="primary" @click="queryHandler">搜索</el-button>             
             </el-form-item>
         </el-form>
       </el-col>
@@ -23,7 +22,7 @@
       </el-col>
     </el-row>
    
-    <el-table size="small" :data="workorderData.list" border empty-text="当前数据没有，请添加数据">
+    <el-table size="small" :data="workorderData.list" border>
       <el-table-column label="序号" type="index" :index="1" align="center"></el-table-column>
       <el-table-column type="expand">
         <template slot-scope="slot">

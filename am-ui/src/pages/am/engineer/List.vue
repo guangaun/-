@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:06:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 10:24:45
+ * @LastEditTime: 2021-12-22 11:12:58
  * @LastEditTime: 2021-12-21 11:45:13
 -->
 <template>
@@ -15,7 +15,7 @@
             <el-input v-model="params.name"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="queryHandler">搜索</el-button>
+            <el-button type="primary" @click="queryHandler">搜索</el-button> 
           </el-form-item>
         </el-form>
       </el-col>
@@ -24,7 +24,7 @@
       </el-col>
     </el-row>
    
-    <el-table size="small" :data="engineerData.list">
+    <el-table size="small" :data="engineerData.list" border>
       <el-table-column label="工程编号" prop="serial_number" width="100" align="center"></el-table-column>
       <el-table-column label="工程名称" prop="name" min-width="200" align="center"></el-table-column>
       <el-table-column label="状态" prop="status" width="100" align="center">
