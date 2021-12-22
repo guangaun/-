@@ -3,11 +3,11 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 09:29:02
+ * @LastEditTime: 2021-12-22 14:34:21
 -->
 <template>
   <div class="order">
-    <van-nav-bar title="我的工单" />
+    <van-nav-bar title="我的工单" /> 
     <van-tabs @click="tabClickHandler" v-model="active" color="#1659a0">
       <van-tab title="全部"></van-tab>
       <van-tab title="进行中"></van-tab> 
@@ -93,13 +93,13 @@ export default {
   font-size: 14px;
   color: #666;
   padding-bottom: 50px;
-  background-color: #e7e7e7;
+  background-color: #f1fafc;
 }
 .order .order_list{
   padding: .5em;
 }
 .order .order_list > .order {
-  background-color: rgb(241, 241, 241);
+  background-color: rgb(203, 240, 247);
   margin-bottom: .5em;
   border-radius: 5px;
   padding:.5em
