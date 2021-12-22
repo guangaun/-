@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 14:27:30
+ * @LastEditTime: 2021-12-22 11:38:18
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -35,7 +35,7 @@ const routes = [
       let token = getToken();
       if(token){
         // 查询info
-        store.dispatch('user/info',token)
+        store.dispatch('user/getInfo',token)
         .then(()=>{
           // 当获取万用户信息之后才允许跳转
           next();

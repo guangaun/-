@@ -2,8 +2,8 @@
  * @Description: 
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
- * @LastEditors: charles
- * @LastEditTime: 2021-12-14 22:49:56
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-12-22 11:34:10
  */
 import {get,postJSON,post} from '../../http/axios'
 import {setToken,getToken,removeToken} from '../../utils/auth'
@@ -35,7 +35,7 @@ export default {
       context.commit("refreshToken",token);
     },
     // 通过token获取info
-    async info(context,token){
+    async getInfo(context,token){
       console.log('info');
       let response = await get("/user/getInfo");
       // 将用户信息设置到info中

@@ -3,14 +3,23 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 10:28:13
+ * @LastEditTime: 2021-12-22 11:44:16
 -->
 
 <template>
   <div class="user">
     <div class="header">
       <div class="photo">
-        <img src="../../assets/mxc.jpg" alt=""/>
+        <van-uploader 
+      multiple 
+      :max-count="1" 
+      result-type="file"
+      :after-read="afterRead" >
+      <!--默认头像-->
+       <img :src="info.user_face" alt="" v-if="info.user_face"/>
+           <img src="../../assets/mxc.jpg" alt="" v-else>
+      </van-uploader>
+       
       </div>
       <div class="name">{{info.name}}</div>
     </div>
@@ -28,6 +37,8 @@
 </template>
 <script>
 import {patch, get} from '../../http/axios';
+import {Toast}from 'vant';
+import axios from 'axios'
 import {mapState, mapActions} from 'vuex'
 export default {
   data() {
@@ -46,10 +57,43 @@ export default {
       }
     })
   },
-    ...mapActions('user',['logout']),
+    ...mapActions('user',['logout','getInfo']),
     logoutHandler(){
       this.logout().then(()=>{
         this.$router.push({path:'/login'})
+      });
+    },
+    // 上传图片
+    afterRead(file){
+      file.status = "uploading";
+      file.message = "上传中...";
+      // 将文件上传至服务器测试
+      let url = "http://121.199.29.84:8001/file/upload";
+      let params = new FormData();
+      params.append("file", file.file);
+      axios.post(url, params, {
+        headers: { "Content-Type": "multipart/form-data" }
+      })
+      .then(response => {
+        //更新用户头像
+        file.status = "success";
+        //新头像地址
+        let user_face = 'http://121.199.29.84:8888/group1/'+response.data.data.id;
+        let params={
+          id:this.info.id+"",
+          user_face
+        }
+        let url="/user/updateUserFace"
+        patch(url,params).then(resp =>{
+          Toast.success(resp.message)
+          //刷新用户信息
+          this.getInfo();
+        })
+      })
+      .catch(error => {
+        file.status = "failed";
+        file.message = "上传失败!";
+        Toast("图片上传失败!:" + error + " 请返回重新上传!");
       });
     }
   },

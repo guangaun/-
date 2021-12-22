@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-21 21:16:10
+ * @LastEditTime: 2021-12-22 11:15:47
  */
 import axios from 'axios';
 import qs from 'qs'
@@ -89,7 +89,9 @@ export function post(url, data) {
 export function postJSON(url, data) {
   return service.post(url,data)
 }
-
+export function patch(url, data) {
+  return service.patch(url,data)
+}
 // 退出
 async function logout() {
   router.push(`/login`)
