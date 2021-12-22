@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 20:42:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 15:26:19
+ * @LastEditTime: 2021-12-22 20:08:21
 -->
 <template>
   <div class="order">
@@ -23,11 +23,11 @@
           </van-col>
           
           <van-col span="18">
-            <div>类型： {{o.type}} </div>
-            <div>状态： {{o.status}} </div>
-            <div>设备： {{o.device_name}} </div>
-            <div>工程： {{o.engineer_name}} </div>
-            <div>描述： {{o.bill_why}} </div>
+            <div><strong>类型：</strong> {{o.type}} </div>
+            <div><strong>状态：</strong> {{o.status}} </div>
+            <div><strong>设备：</strong>{{o.device_name}} </div>
+            <div><strong>工程：</strong>{{o.engineer_name}} </div>
+            <div><strong>描述：</strong>{{o.bill_why}} </div>
           </van-col>
         </van-row>
          <div class="btns">
