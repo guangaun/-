@@ -3,25 +3,10 @@
  * @Author: charles
  * @Date: 2021-12-14 22:07:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 11:09:15
+ * @LastEditTime: 2021-12-22 20:04:06
 -->
 <template>
-  <div>
-    <el-row>
-      <el-col :span="12">
-        <el-form :model="params" inline size="small">
-          <el-form-item>
-            <el-input v-model="params.name"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="queryHandler">搜索</el-button>             
-            </el-form-item>
-        </el-form>
-      </el-col>
-      <el-col :span="12" style="text-align:right">
-      </el-col>
-    </el-row>
-   
+  <div>   
     <el-table size="small" :data="workorderData.list" border>
       <el-table-column label="序号" type="index" :index="1" align="center"></el-table-column>
       <el-table-column type="expand">
@@ -108,8 +93,7 @@ export default {
       let url = "/workorder/cancelOrder"
         get(url,{id:row.id}).then(resp =>{
         this.$message({type:"success",message:resp.message});
-        this.loadWorkorders();
-           
+        this.loadWorkorders();          
       })
     },
     queryHandler(){

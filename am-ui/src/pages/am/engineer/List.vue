@@ -3,7 +3,7 @@
  * @Author: charles
  * @Date: 2021-12-14 22:06:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-22 11:12:58
+ * @LastEditTime: 2021-12-22 20:15:19
  * @LastEditTime: 2021-12-21 11:45:13
 -->
 <template>
@@ -12,15 +12,9 @@
       <el-col :span="12">
         <el-form :model="params" inline size="small">
           <el-form-item>
-            <el-input v-model="params.name"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="queryHandler">搜索</el-button> 
+            <el-button type="primary" size="small" @click="toAddHandler">录入</el-button> 
           </el-form-item>
         </el-form>
-      </el-col>
-      <el-col :span="12" style="text-align:right">
-        <el-button type="primary" size="small" @click="toAddHandler">录入</el-button>
       </el-col>
     </el-row>
    
@@ -152,10 +146,7 @@ export default {
         this.charges = resp.data.list;
       })
     },
-    queryHandler(){
-      this.params.page = 1;
-      this.loadEngineers();
-    },
+
     submitHandler(){
       let url ="/engineer/saveOrUpdate"
       postJSON(url,this.form).then(resp => {
